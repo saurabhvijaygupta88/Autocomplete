@@ -1,0 +1,65 @@
+<html>
+<head>
+	<link href="~/../Css/autocomplete.css" rel="stylesheet" />
+	<link href="~/../Css/theme.css" rel="stylesheet" />
+	<link href="~/../Css/site.css" rel="stylesheet" />
+
+    <script src="~/../Scripts/jquery-1.8.2.min.js"></script>
+	<script src="~/../Scripts/jquery-ui-1.8.24.min.js"></script>
+</head>
+<body style="background-color: #7ac0da;">
+<div style="padding:20px;">
+    <div>Note: This code is working but for styling and css create a mvc application and use that css bundle in your code.</div>
+	<div>	
+		<span style="margin-right: 15px;"> Autocomplete</span>
+		<input id="autocomplete" />
+	</div>
+	</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ui.autocomplete.prototype._renderItem = function (ul, item) {
+            item.label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + $.ui.autocomplete.escapeRegex(this.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>");
+            
+            return $("<li></li>")
+                    .data("item.autocomplete", item)
+                    .append("<a>" + item.label + "</a>")
+                    .appendTo(ul);
+        };
+        
+		var source = ["JavaScript","ActionScript", "C++","Delphi","Cobol","Java","Ruby","Pythin","Perl","Groove","Lisp","Pascal","Assembly","Cliper"];
+		
+        $("#autocomplete").autocomplete({
+            //source: function (request, response) {
+            //    $.ajax({
+            //        url: "http://localhost:55275/Api/Values/GetDropDownData",
+            //        data: "{}",
+            //        dataType: "json",
+            //        type: "GET",
+            //        contentType: "application/json; charset=utf-8",
+            //        success: function (data) {
+            //            var ProductArray = [];
+            //            $.each(data, function (key, value) {
+            //                ProductArray[key] = value;
+            //            });
+            //            //  \\b show each match letter in each word of list
+            //            //  ^ show each match letter in whole word of list
+            //            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            //            var a = $.grep(ProductArray, function (item, index) {
+            //                return matcher.test(item);
+            //            });
+            //            response(a);
+            //        },
+            //        error: function (er) {
+            //            alert(er.responseText);
+            //        }
+            //    });
+            //},
+			source: source,
+            minLength: 2
+        });
+
+    });
+</script>
